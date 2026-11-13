@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="id">
 
 <head>
@@ -315,11 +315,18 @@
       font-weight: 600;
       transition:
         transform 0.18s ease,
-        background 0.18s ease;
+        background 0.18s ease,
+        box-shadow 0.18s ease,
+        color 0.18s ease;
     }
 
     .btn:hover {
       transform: translateY(-1px);
+      box-shadow: 0 7px 18px rgba(16, 45, 40, 0.12);
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(0.98);
     }
 
     .btn-primary {
@@ -354,6 +361,13 @@
       border: 1px solid var(--hairline);
       color: var(--ink);
       background: var(--canvas);
+      transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
+    }
+
+    .icon-btn:hover {
+      color: var(--ink);
+      background: var(--mint-soft);
+      transform: rotate(8deg) scale(1.05);
     }
 
     .menu-btn {
@@ -498,6 +512,16 @@
       border: 1px solid var(--hairline);
       border-radius: var(--radius);
       background: var(--canvas);
+      transition:
+        transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(16, 45, 40, 0.1);
+      border-color: color-mix(in srgb, var(--mint) 42%, var(--hairline));
     }
 
     .card-soft {
@@ -520,6 +544,14 @@
       color: var(--mint-text);
       font-size: 20px;
       margin-bottom: 25px;
+      transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+    }
+
+    .service-card:hover .icon,
+    .benefit:hover .icon {
+      transform: rotate(-6deg) scale(1.08);
+      background: var(--mint);
+      color: var(--dark);
     }
 
     .card h3 {
@@ -944,6 +976,11 @@
       list-style: none;
       display: flex;
       justify-content: space-between;
+      transition: color 0.18s ease;
+    }
+
+    summary:hover {
+      color: var(--mint-deep);
     }
 
     summary::after {
@@ -962,6 +999,19 @@
       font-size: 14px;
       margin: 14px 0 0;
       max-width: 700px;
+      animation: faq-in 0.28s ease both;
+    }
+
+    @keyframes faq-in {
+      from {
+        opacity: 0;
+        transform: translateY(-5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
     }
 
     .tools {
@@ -1095,6 +1145,10 @@
       background: var(--canvas);
       color: var(--ink);
       outline: none;
+      transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
     }
 
     textarea {
@@ -1107,6 +1161,8 @@
     textarea:focus {
       border: 2px solid var(--mint);
       padding: 10px 11px;
+      box-shadow: 0 0 0 4px rgba(0, 212, 164, 0.12);
+      transform: translateY(-1px);
     }
 
     .calc-result {
@@ -1122,6 +1178,17 @@
 
     .calc-result strong {
       font-size: 22px;
+    }
+
+    .sum .tot strong.total-updated {
+      animation: total-pop 0.34s ease;
+    }
+
+    @keyframes total-pop {
+      50% {
+        color: var(--mint-deep);
+        transform: scale(1.06);
+      }
     }
 
     .map {
@@ -1301,6 +1368,12 @@
       place-items: center;
       font-size: 25px;
       box-shadow: 0 8px 25px rgba(32, 197, 106, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .wa:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 30px rgba(32, 197, 106, 0.5);
     }
 
     .toast {
@@ -1335,9 +1408,36 @@
       box-shadow: 0 24px 70px rgba(0, 0, 0, .22);
     }
 
+    .result-dialog[open] {
+      animation: dialog-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
     .result-dialog::backdrop {
       background: rgba(13, 30, 27, .52);
       backdrop-filter: blur(4px);
+      animation: backdrop-in 0.28s ease both;
+    }
+
+    @keyframes dialog-in {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes backdrop-in {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
 
     .dialog-inner {
@@ -1462,8 +1562,46 @@
       transform: none;
     }
 
+    .hero .eyebrow,
+    .hero h1,
+    .hero p,
+    .hero-actions,
     .hero-visual {
-      animation: gentle-float 6s ease-in-out infinite;
+      animation: hero-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .hero h1 {
+      animation-delay: 0.08s;
+    }
+
+    .hero p {
+      animation-delay: 0.16s;
+    }
+
+    .hero-actions {
+      animation-delay: 0.24s;
+    }
+
+    .hero-visual {
+      animation-delay: 0.32s, 1s;
+    }
+
+    @keyframes hero-in {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .hero-visual {
+      animation:
+        hero-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both,
+        gentle-float 6s ease-in-out 1s infinite;
     }
 
     .floating-note {
@@ -1536,8 +1674,26 @@
       .hero-visual,
       .floating-note,
       .wa,
-      .typing-cursor {
+      .typing-cursor,
+      .result-dialog[open],
+      .result-dialog::backdrop,
+      .hero .eyebrow,
+      .hero h1,
+      .hero p,
+      .hero-actions,
+      .hero-visual,
+      details p,
+      .sum .tot strong.total-updated {
         animation: none;
+      }
+
+      .card:hover,
+      .icon-btn:hover,
+      .wa:hover,
+      input:focus,
+      select:focus,
+      textarea:focus {
+        transform: none;
       }
     }
 
@@ -1903,9 +2059,9 @@
       <div class="nav-links" id="navLinks">
         <a href="#layanan"><svg class="i nav-icon" aria-hidden="true"><use href="#i-shirt" /></svg><span>Layanan</span></a><a
           href="#harga"><svg class="i nav-icon" aria-hidden="true"><use href="#i-tag" /></svg><span>Harga</span></a><a
-          href="#faq"><svg class="i nav-icon" aria-hidden="true"><use href="#i-message" /></svg><span>FAQ</span></a><a
           href="#booking"><svg class="i nav-icon" aria-hidden="true"><use href="#i-zap" /></svg><span>Booking</span></a><a
           href="#lacak"><svg class="i nav-icon" aria-hidden="true"><use href="#i-clock" /></svg><span>Lacak</span></a><a
+          href="#faq"><svg class="i nav-icon" aria-hidden="true"><use href="#i-message" /></svg><span>FAQ</span></a><a
           href="#kontak"><svg class="i nav-icon" aria-hidden="true"><use href="#i-pin" /></svg><span>Kontak</span></a>
       </div>
       <div class="nav-actions">
@@ -2546,6 +2702,18 @@
     const navSections = navAnchors
       .map((anchor) => document.querySelector(anchor.getAttribute("href")))
       .filter(Boolean);
+    navAnchors.forEach((anchor) => {
+      anchor.addEventListener("click", (event) => {
+        const target = document.querySelector(anchor.getAttribute("href"));
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({
+          behavior: reducedMotion.matches ? "auto" : "smooth",
+          block: "start",
+        });
+        history.replaceState(null, "", anchor.getAttribute("href"));
+      });
+    });
     const syncActiveNav = () => {
       const marker = window.innerHeight * 0.36;
       let activeSection = navSections[0];
@@ -2615,6 +2783,10 @@
         ? "Gratis antar-jemput radius 3 km; di luar itu biaya dikonfirmasi admin."
         : `Tambah ${formatIDR(FREE_SHIP_MIN - c.sub)} lagi agar antar-jemput gratis (radius 3 km).`;
       $("#total").textContent = formatIDR(c.total);
+      const total = $("#total");
+      total.classList.remove("total-updated");
+      void total.offsetWidth;
+      total.classList.add("total-updated");
       $("#bkSummary").textContent =
         `${c.s.label} · ${c.qty} ${u} · ${formatIDR(c.total)}`;
     };
