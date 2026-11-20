@@ -69,7 +69,7 @@ export function Contact() {
             src="https://www.google.com/maps?q=Jl.%20Raya%20Blega%20No.%2001%2C%20Blega%2C%20Kabupaten%20Bangkalan%2C%20Jawa%20Timur%2069161&output=embed"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            className="h-[275px] w-full border-0 lg:h-[420px]"
+            className="h-[275px] w-full border-0 transition duration-300 lg:h-[420px] dark:invert dark:hue-rotate-180 dark:brightness-90"
           />
         </div>
       </div>

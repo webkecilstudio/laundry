@@ -1,4 +1,5 @@
 import { LuArrowRight } from "react-icons/lu";
+import promoImage from "../../assets/promo.jpg";
 import { Button } from "../ui/Button";
 
 export function PromoSection() {
@@ -54,7 +55,7 @@ export function PromoSection() {
         </div>
         <div className="min-h-[220px] overflow-hidden rounded-[20px] border border-hairline bg-surface shadow-medium lg:min-h-0 reveal stagger-2">
           <img
-            src="https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?auto=format&fit=crop&w=1000&q=85"
+            src={promoImage}
             alt="Tumpukan handuk dan pakaian bersih"
             className="h-full min-h-[220px] w-full object-cover saturate-[0.82]"
           />

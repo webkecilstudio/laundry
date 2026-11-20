@@ -7,6 +7,10 @@ import {
 import { LuArrowRight, LuCalendarDays } from "react-icons/lu";
 import type { PriceCalculator } from "../../../hooks/usePriceCalculator";
 import {
+  DEMO_ORDER_CODE,
+  type DemoOrder,
+} from "../../../lib/demoOrder";
+import {
   pickupSlots,
   type PickupSlot,
 } from "../../../lib/data";
@@ -17,12 +21,8 @@ import {
   todayISO,
 } from "../../../lib/utils";
 import { Button } from "../../ui/Button";
-import {
-  DialogDetails,
-  DialogRow,
-  DialogStatus,
-  type ResultDialogContent,
-} from "../../ui/ResultDialog";
+import type { ResultDialogContent } from "../../ui/ResultDialog";
+import { buildSuccessDialog } from "./orderDialogs";
 
 type FieldProps = {
   label: string;
@@ -51,11 +51,13 @@ const initialSlot =
 type BookingFormProps = {
   calculator: PriceCalculator;
   onShowDialog: (dialog: ResultDialogContent) => void;
+  onBooked: (order: DemoOrder) => void;
 };
 
 export function BookingForm({
   calculator,
   onShowDialog,
+  onBooked,
 }: BookingFormProps) {
   const [pickupDate, setPickupDate] = useState(initialDate);
   const [slot, setSlot] = useState(String(initialSlot.start));
@@ -80,52 +82,28 @@ export function BookingForm({
     event.preventDefault();
     const form = new FormData(event.currentTarget);
     const value = (name: string) => String(form.get(name) ?? "").trim();
-    const orderId = `BB-${String(Date.now()).slice(-4)}`;
     const selectedSlot =
       pickupSlots.find((item) => String(item.start) === slot)?.label ?? "";
     const { rule, qty, subtotal, discount, total, freeShip } = calculator;
 
-    onShowDialog({
-      kicker: "Pickup berhasil dijadwalkan",
-      title: `Pesanan ${orderId}`,
-      content: (
-        <>
-          <DialogStatus>
-            Kurir akan menghubungi kamu sebelum datang menjemput pakaian.
-          </DialogStatus>
-          <DialogDetails>
-            <DialogRow label="Nomor order" value={orderId} />
-            <DialogRow label="Nama" value={value("name")} />
-            <DialogRow label="WhatsApp" value={value("phone")} />
-            <DialogRow label="Alamat pickup" value={value("address")} />
-            <DialogRow
-              label="Jadwal pickup"
-              value={`${formatPickupDate(pickupDate)}, ${selectedSlot}`}
-            />
-            <DialogRow label="Layanan" value={rule.label} />
-            <DialogRow label="Jumlah" value={`${qty} ${rule.unit}`} />
-            <DialogRow label="Subtotal" value={formatIDR(subtotal)} />
-            {discount ? (
-              <DialogRow
-                label="Diskon pelanggan baru"
-                value={`−${formatIDR(discount)}`}
-              />
-            ) : null}
-            <DialogRow label="Estimasi total" value={formatIDR(total)} />
-            <DialogRow
-              label="Antar-jemput"
-              value={freeShip ? "Gratis (radius 3 km)" : "Dikonfirmasi admin"}
-            />
-            {value("promo") ? (
-              <DialogRow label="Kode promo" value={value("promo")} />
-            ) : null}
-            {value("note") ? (
-              <DialogRow label="Catatan" value={value("note")} />
-            ) : null}
-          </DialogDetails>
-        </>
-      ),
-    });
+    const order: DemoOrder = {
+      code: DEMO_ORDER_CODE,
+      name: value("name"),
+      phone: value("phone"),
+      address: value("address"),
+      schedule: `${formatPickupDate(pickupDate)}, ${selectedSlot}`,
+      service: rule.label,
+      quantity: `${qty} ${rule.unit}`,
+      subtotal,
+      discount,
+      total,
+      shipping: freeShip ? "Gratis (radius 3 km)" : "Dikonfirmasi admin",
+      promo: value("promo") || undefined,
+      note: value("note") || undefined,
+    };
+
+    onBooked(order);
+    onShowDialog(buildSuccessDialog(order));
   };
 
   return (

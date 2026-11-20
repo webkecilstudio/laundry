@@ -1,4 +1,5 @@
 import { LuArrowRight, LuCircleCheckBig, LuClock } from "react-icons/lu";
+import heroImage from "../../assets/hero.jpg";
 import { Button } from "../ui/Button";
 
 const stats = [
@@ -53,7 +54,7 @@ export function Hero() {
         <div className="relative animate-[hero-in_0.6s_cubic-bezier(0.22,1,0.36,1)_0.12s_both]">
           <div className="overflow-hidden rounded-xl border border-hairline bg-surface shadow-overlay">
             <img
-              src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&w=1400&q=85"
+              src={heroImage}
               alt="Ilustrasi mesin cuci dan pakaian bersih"
               className="h-[300px] w-full object-cover md:h-[380px] lg:h-[430px]"
             />

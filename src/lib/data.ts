@@ -1,11 +1,13 @@
 import type { IconType } from "react-icons";
 import {
   LuAward,
+  LuCalendarDays,
   LuCircleCheckBig,
+  LuCircleHelp,
   LuClock,
   LuDroplet,
   LuMapPin,
-  LuMessageCircleQuestion,
+  LuSearch,
   LuShirt,
   LuShieldCheck,
   LuTag,
@@ -81,9 +83,9 @@ export type PickupSlot = {
 export const navLinks: NavLink[] = [
   { href: "#layanan", label: "Layanan", icon: LuShirt },
   { href: "#harga", label: "Harga", icon: LuTag },
-  { href: "#booking", label: "Booking", icon: LuZap },
-  { href: "#lacak", label: "Lacak", icon: LuClock },
-  { href: "#faq", label: "FAQ", icon: LuMessageCircleQuestion },
+  { href: "#booking", label: "Booking", icon: LuCalendarDays },
+  { href: "#lacak", label: "Lacak", icon: LuSearch },
+  { href: "#faq", label: "FAQ", icon: LuCircleHelp },
   { href: "#kontak", label: "Kontak", icon: LuMapPin },
 ];
 

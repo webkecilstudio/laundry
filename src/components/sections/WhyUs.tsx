@@ -1,3 +1,4 @@
+import whyUsImage from "../../assets/why-us.jpg";
 import { benefits } from "../../lib/data";
 
 export function WhyUs() {
@@ -34,7 +35,7 @@ export function WhyUs() {
         </div>
         <div className="overflow-hidden rounded-xl border border-hairline bg-surface shadow-large reveal stagger-2">
           <img
-            src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?auto=format&fit=crop&w=900&q=85"
+            src={whyUsImage}
             alt="Pakaian bersih yang dilipat rapi"
             className="h-[330px] w-full object-cover lg:h-[445px]"
           />

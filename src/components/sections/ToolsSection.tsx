@@ -2,6 +2,10 @@ import { useRef, useState } from "react";
 import { usePriceCalculator } from "../../hooks/usePriceCalculator";
 import type { ServiceId } from "../../lib/data";
 import {
+  defaultDemoOrder,
+  type DemoOrder,
+} from "../../lib/demoOrder";
+import {
   ResultDialog,
   type ResultDialogContent,
 } from "../ui/ResultDialog";
@@ -19,6 +23,7 @@ type ToolsSectionProps = {
 export function ToolsSection({ service, setService }: ToolsSectionProps) {
   const [dialog, setDialog] = useState<ResultDialogContent | null>(null);
   const [toastMessage, setToastMessage] = useState("");
+  const [order, setOrder] = useState<DemoOrder>(defaultDemoOrder);
   const toastTimer = useRef<number | null>(null);
   const calculator = usePriceCalculator(service, setService);
 
@@ -44,10 +49,20 @@ export function ToolsSection({ service, setService }: ToolsSectionProps) {
         <div className="grid gap-4 lg:grid-cols-[1fr_1.25fr]">
           <div className="reveal stagger-1 flex flex-col gap-4">
             <CalculatorCard {...calculator} />
-            <TrackCard onShowDialog={setDialog} notify={notify} />
+            <div className="order-first lg:order-none">
+              <TrackCard
+                order={order}
+                onShowDialog={setDialog}
+                notify={notify}
+              />
+            </div>
           </div>
           <div className="reveal stagger-2">
-            <BookingForm calculator={calculator} onShowDialog={setDialog} />
+            <BookingForm
+              calculator={calculator}
+              onShowDialog={setDialog}
+              onBooked={setOrder}
+            />
           </div>
         </div>
       </div>
